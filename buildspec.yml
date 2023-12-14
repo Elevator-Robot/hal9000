@@ -6,7 +6,7 @@ phases:
       - python3 -m venv .env
       - source .env/bin/activate
       - pip install -r requirements.txt
-  deploy:
+  build:
     commands:
       - echo "Deploy started on `date`"
       - cdk deploy
