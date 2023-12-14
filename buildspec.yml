@@ -2,12 +2,13 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      python: 3.11
     commands:
-      - python3 -m venv .env
-      - source .env/bin/activate
       - pip install -r requirements.txt
-      - npm install -g aws-cdk
   build:
     commands:
-      - echo "Deploy started on `date`"
-      - cdk deploy
+      - cdk synth --no-staging > template.yml
+artifacts:
+  files:
+    - template.yml
