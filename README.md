@@ -1,3 +1,6 @@
+<!-- add a badge to the tests gh pipeline -->
+[![Tests](https://github.com/Elevator-Robot/hal9000/actions/workflows/tests.yml/badge.svg)](https://github.com/Elevator-Robot/hal9000/actions/workflows/tests.yml)
+
 ## HAL9000
 
 HAL9000 is a chatbot client integration for slack. It's deployed with CDK & the app is written in Python.
