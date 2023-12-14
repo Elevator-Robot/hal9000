@@ -1,5 +1,5 @@
 <!-- add a badge to the tests gh pipeline -->
-[![Tests](https://github.com/Elevator-Robot/hal9000/actions/workflows/tests.yml/badge.svg)](https://github.com/Elevator-Robot/hal9000/.github/workflows/tests.yml)
+[![Tests](https://github.com/Elevator-Robot/hal9000/actions/workflows/tests.yml/badge.svg)](https://github.com/Elevator-Robot/hal9000/actions/workflows/tests.yml)
 
 ## HAL9000
 
