@@ -19,14 +19,15 @@ class Hal9000Stack(cdk.Stack):
             display_name="Hal9000",
         )
 
-        # environments
+        slack_workspace_id = os.environ["SLACK_WORKSPACE_ID"] or ""
+        slack_channel_id = os.environ["SLACK_CHANNEL_ID"] or ""
 
         chatbot.SlackChannelConfiguration(
             self,
             "Hal9000SlackChannelConfiguration",
             slack_channel_configuration_name="Hal9000",
-            slack_workspace_id=os.environ["SLACK_WORKSPACE_ID"],
-            slack_channel_id=os.environ["SLACK_CHANNEL_ID"],
+            slack_workspace_id=slack_workspace_id,
+            slack_channel_id=slack_channel_id,
             notification_topics=[topic],
             logging_level=chatbot.LoggingLevel.ERROR,
         )
