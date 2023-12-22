@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 import os
 
-import aws_cdk as cdk
-import aws_cdk.aws_chatbot as chatbot
-import aws_cdk.aws_sns as sns
 from constructs import Construct
 
 from aws_cdk import (
+    App,
+    Stack,
+    CfnOutput,
+    SecretValue,
+    aws_chatbot as chatbot,
+    aws_iam as iam,
+    aws_sns as sns,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
     aws_codebuild as codebuild,
 )
 
-app = cdk.App()
+app = App()
 
 
-class Hal9000Stack(cdk.Stack):
+class Hal9000Stack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -39,9 +43,11 @@ class Hal9000Stack(cdk.Stack):
         )
 
 
-class PipelineStack(cdk.Stack):
+class PipelineStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        github_token = SecretValue.plain_text(os.environ["GITHUB_TOKEN"] or "")
 
         source_output = codepipeline.Artifact()
         build_output = codepipeline.Artifact()
@@ -62,18 +68,16 @@ class PipelineStack(cdk.Stack):
             "Hal9000Pipeline",
             stages=[
                 codepipeline.StageProps(
+                    # source stage is a public github repo
                     stage_name="Source",
                     actions=[
                         codepipeline_actions.GitHubSourceAction(
                             action_name="GitHub_Source",
                             owner="elevator-robot",
                             repo="hal9000",
-                            branch="dev",
-                            trigger=codepipeline_actions.GitHubTrigger.WEBHOOK,
-                            oauth_token=cdk.SecretValue.unsafe_plain_text(
-                                "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"
-                            ),
+                            branch="main",
                             output=source_output,
+                            oauth_token=github_token,
                         )
                     ],
                 ),
@@ -92,7 +96,7 @@ class PipelineStack(cdk.Stack):
         )
 
         # The code that defines your stack goes here
-        cdk.CfnOutput(self, "PipelineStack", value="PipelineStack")
+        CfnOutput(self, "PipelineStack", value="PipelineStack")
 
 
 PipelineStack(app, "PipelineStack")
