@@ -63,36 +63,35 @@ class PipelineStack(Stack):
             ),
         )
 
-        codepipeline.Pipeline(
+        pipeline = codepipeline.Pipeline(
             self,
             "Hal9000Pipeline",
-            stages=[
-                codepipeline.StageProps(
-                    # source stage is a public github repo
-                    stage_name="Source",
-                    actions=[
-                        codepipeline_actions.GitHubSourceAction(
-                            action_name="GitHub_Source",
-                            owner="elevator-robot",
-                            repo="hal9000",
-                            branch="main",
-                            output=source_output,
-                            oauth_token=github_token,
-                        )
-                    ],
-                ),
-                codepipeline.StageProps(
-                    stage_name="Build",
-                    actions=[
-                        codepipeline_actions.CodeBuildAction(
-                            action_name="CodeBuild",
-                            project=codebuild_project,
-                            input=source_output,
-                            outputs=[build_output],
-                        )
-                    ],
-                ),
-            ],
+        )
+
+        source_action = codepipeline_actions.GitHubSourceAction(
+            action_name="GitHub_Source",
+            owner="elevator-robot",
+            repo="hal9000",
+            branch="dev",
+            output=source_output,
+            oauth_token=github_token,
+        )
+
+        build_action = codepipeline_actions.CodeBuildAction(
+            action_name="CodeBuild",
+            project=codebuild_project,
+            input=source_output,
+            outputs=[build_output],
+        )
+
+        pipeline.add_stage(
+            stage_name="Source",
+            actions=[source_action],
+        )
+
+        pipeline.add_stage(
+            stage_name="Build",
+            actions=[build_action],
         )
 
         # The code that defines your stack goes here
