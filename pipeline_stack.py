@@ -29,10 +29,12 @@ class PipelineStack(Stack):
                 "Synth",
                 input=CodePipelineSource.connection(
                     "elevator-robot/hal9000",
-                    "dev",
+                    "main",
                     connection_arn="arn:aws:codestar-connections:us-east-1:764114738171:connection/ea715684-208a-4756-ac77-b1ab5acd5dfe",  # noqa
                 ),
-                commands=["npm ci", "npm run build", "npx cdk synth"],
+                # commands=["npm ci", "npm run build", "npx cdk synth"],
+                # commands to run cdk python
+                commands=["pip install -r requirements.txt", "cdk synth"],
             ),
         )
 
