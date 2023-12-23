@@ -41,8 +41,8 @@ class PipelineStack(Stack):
                 self,
                 "ChatbotStage",
                 env={
-                    "slack_workspace_id": "T069D8YS4MP",
-                    "slack_channel_id": "C068L3YPX7H",
+                    "SLACK_WORKSPACE_ID": "T069D8YS4MP",
+                    "SLACK_CHANNEL_ID": "C068L3YPX7H",
                 },
             )
         )

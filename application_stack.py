@@ -15,12 +15,12 @@ class ChatbotStack(Stack):
             display_name="Hal9000",
         )
 
-        slack_workspace_id = environ["slack_workspace_id"]
+        slack_workspace_id = environ["SLACK_WORKSPACE_ID"]
         if not slack_workspace_id:
-            raise ValueError("slack_workspace_id is not defined")
-        slack_channel_id = environ["slack_channel_id"]
+            raise ValueError("SLACK_WORKSPACE_ID is not defined")
+        slack_channel_id = environ["SLACK_CHANNEL_ID"]
         if not slack_channel_id:
-            raise ValueError("slack_channel_id is not defined")
+            raise ValueError("SLACK_CHANNEL_ID is not defined")
 
         chatbot.SlackChannelConfiguration(
             self,
