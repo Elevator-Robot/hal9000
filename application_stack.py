@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from os import environ
 from constructs import Construct
 
 from aws_cdk import Stack, aws_chatbot as chatbot, aws_sns as sns
@@ -14,8 +15,12 @@ class ChatbotStack(Stack):
             display_name="Hal9000",
         )
 
-        slack_workspace_id = "T069D8YS4MP"
-        slack_channel_id = "C068L3YPX7H"
+        slack_workspace_id = environ["slack_workspace_id"]
+        if not slack_workspace_id:
+            raise ValueError("slack_workspace_id is not defined")
+        slack_channel_id = environ["slack_channel_id"]
+        if not slack_channel_id:
+            raise ValueError("slack_channel_id is not defined")
 
         chatbot.SlackChannelConfiguration(
             self,

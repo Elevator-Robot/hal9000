@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from constructs import Construct
 
-from aws_cdk import App, Stack, Stage, CfnOutput
+from aws_cdk import Stack, Stage, CfnOutput
 
 from aws_cdk.pipelines import (
     CodePipeline,
@@ -36,6 +36,15 @@ class PipelineStack(Stack):
             ),
         )
 
-        pipeline.add_stage(ApplicationStageChatbot(self, "ChatbotStage"))
+        pipeline.add_stage(
+            ApplicationStageChatbot(
+                self,
+                "ChatbotStage",
+                env={
+                    "slack_workspace_id": "T069D8YS4MP",
+                    "slack_channel_id": "C068L3YPX7H",
+                },
+            )
+        )
 
         CfnOutput(self, "PipelineStack", value="PipelineStack")
