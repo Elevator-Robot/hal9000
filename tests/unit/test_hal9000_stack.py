@@ -1,19 +1,20 @@
 """Unit tests for the Hal9000 stack."""
-from os import environ
 import aws_cdk as core
 import aws_cdk.assertions as assertions
 
-from unittest.mock import patch
+from application_stack import ChatbotStack, ChatbotStackProps
 
 
-@patch.dict(environ, {"SLACK_WORKSPACE_ID": "T12345678"})
-@patch.dict(environ, {"SLACK_CHANNEL_ID": "C12345678"})
 def test_sqs_queue_created():
-    """Test that an SNS topic are created and a Slack channel configuration is created."""  # noqa: E501
-    from application_stack import ChatbotStack
+    """Test that an SNS topic and a Slack channel configuration are created."""
+
+    chatbot_props = ChatbotStackProps(
+        slack_workspace_id="T12345678",
+        slack_channel_id="C12345678",
+    )
 
     app = core.App()
-    stack = ChatbotStack(app, "test-hal9000-stack")
+    stack = ChatbotStack(app, "test-hal9000-stack", props=chatbot_props)
     template = assertions.Template.from_stack(stack)
 
     template.resource_count_is("AWS::SNS::Topic", 1)
