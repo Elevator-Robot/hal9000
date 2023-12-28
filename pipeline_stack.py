@@ -31,8 +31,8 @@ class PipelineStack(Stack):
 
         # Create ChatbotStackProps
         chatbot_props = ChatbotStackProps(
-            slack_workspace_id="T12345678",
-            slack_channel_id="C12345678",
+            slack_workspace_id="T069D8YS4MP",
+            slack_channel_id="C068L3YPX7H",
         )
 
         pipeline = CodePipeline(
