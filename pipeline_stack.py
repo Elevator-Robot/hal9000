@@ -47,7 +47,7 @@ class PipelineStack(Stack):
                 ),
                 commands=["pip install -r requirements.txt", "cdk synth"],
             ),
-            self_mutation=False,
+            self_mutation=True,
         )
 
         pipeline.add_stage(
