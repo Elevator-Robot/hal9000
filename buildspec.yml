@@ -6,6 +6,7 @@ phases:
       python: 3.11
     commands:
       - pip install -r requirements.txt
+      - npm install -g aws-cdk
   build:
     commands:
       - cdk synth --no-staging > template.yml

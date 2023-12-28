@@ -32,20 +32,15 @@ class PipelineStack(Stack):
                     "main",
                     connection_arn="arn:aws:codestar-connections:us-east-1:764114738171:connection/ea715684-208a-4756-ac77-b1ab5acd5dfe",  # noqa
                 ),
-                # commands=["npm ci", "npm run build", "npx cdk synth"],
-                # commands to run cdk python
                 commands=["pip install -r requirements.txt", "cdk synth"],
             ),
+            self_mutation=False,
         )
 
         pipeline.add_stage(
             ApplicationStageChatbot(
                 self,
                 "ChatbotStage",
-                env={
-                    "SLACK_WORKSPACE_ID": "T069D8YS4MP",
-                    "SLACK_CHANNEL_ID": "C068L3YPX7H",
-                },
             )
         )
 
